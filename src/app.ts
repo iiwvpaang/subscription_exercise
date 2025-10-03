@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import api from "./http/routes";
 
 export function createApp() {
   const app = express();
@@ -11,6 +12,9 @@ export function createApp() {
 
   // health check
   app.get("/health", (_req, res) => res.send("ok"));
+
+  // mount all API routes under /api
+  app.use("/api", api);
 
   return app;
 }
