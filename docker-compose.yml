@@ -1,0 +1,27 @@
+services:
+  db-subscription:
+    image: mariadb:latest
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - subscription
+    ports:
+      - 3307:3306
+    volumes:
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+
+  backend-subscription:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 3009:3000
+    networks:
+      - subscription
+    depends_on:
+      - db-subscription
+
+networks:
+  subscription:
+    driver: bridge
