@@ -3,6 +3,7 @@ import { sequelize } from "../../config/db";
 import { Plan } from "../plans/plan.model";
 import { Subscription } from "./subscription.model";
 import { User } from "../users/user.model";
+import { sendToCRM } from "../../libs/mockCRM";
 
 export async function list(): Promise<SubscriptionView[]> {
   const lists = Subscription.findAll({
@@ -80,11 +81,16 @@ export async function subscribe(input: SubscriptionView): Promise<SubscriptionVi
 
     if (!subscriptionData) throw new Error("Subscription not found");
 
-    return {
+    const output = {
         name: user.name!,
         email: user.email!,
         plan: planRecord?.plan_name as PlanName,
         price: Number(planRecord?.price),
     };
+
+    // Send user to mock CRM (logs the JSON)
+    await sendToCRM({ type: "subscription.created", data: output });
+
+    return output;
   });
 }
