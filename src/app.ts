@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import api from "./http/routes";
+import { errorHandler } from "./http/middlewares/error";
+import { notFound } from "./http/middlewares/notfound";
 
 export function createApp() {
   const app = express();
@@ -15,6 +17,9 @@ export function createApp() {
 
   // mount all API routes under /api
   app.use("/api", api);
+
+  app.use(errorHandler);
+  app.use(notFound);
 
   return app;
 }
