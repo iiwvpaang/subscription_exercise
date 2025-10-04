@@ -28,8 +28,8 @@ VALUES
 
 CREATE TABLE `landing_pad_digital`.`subscription` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
-  `plan_id` int NOT NULL,
+  `user_id` unsigned int NOT NULL,
+  `plan_id` unsigned int NOT NULL,
   `start_at` date NOT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)

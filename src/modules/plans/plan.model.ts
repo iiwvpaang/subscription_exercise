@@ -20,7 +20,11 @@ export class Plan extends Model<
 Plan.init(
   {
     id: { type: DataTypes.INTEGER.UNSIGNED, autoIncrement: true, primaryKey: true },
-    plan_name: { type: DataTypes.ENUM("Professional", "Premium"), allowNull: false },
+    plan_name: { 
+      type: DataTypes.ENUM("Professional", "Premium"),
+      allowNull: false,
+      unique: true
+    },
     price: {
       type: DataTypes.INTEGER,
       allowNull: true,
