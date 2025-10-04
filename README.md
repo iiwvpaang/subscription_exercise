@@ -42,6 +42,14 @@ curl -X GET http://localhost:3009/api/subscription/list
 
 localhost on port 3307
 
+## Troubleshoot
+
+if you got the following error:
+```
+Error: listen EADDRINUSE: address already in use :::3009
+```
+try to change the PORT to the new one (such as 3010)
+
 ## Design choices
 
 [ARCHITECTURE.md](ARCHITECTURE.md)
